@@ -1,0 +1,111 @@
+<div class="edit-page">
+  <mat-toolbar>
+    <span>Editando pessoa física</span>
+  </mat-toolbar>
+
+  <div class="page-content">
+    <div class="row">
+      <div class="col-md-3">
+        <img class="img-avatar" src="https://oficinaeditora.com.br/site/wp-content/uploads/2019/01/unnamed.jpg">
+      </div>
+
+      <div class="col-md-9">
+        <form class="edit-form" [formGroup]="editForm" novalidate (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-9">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Nome completo" class="form-control" formControlName="nome">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.nome">
+                  <mat-error
+                    *ngIf="editForm.get('nome').hasError(validation.type) && (editForm.get('nome').dirty || editForm.get('nome').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>            
+            <div class="col-md-3">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="CPF" class="form-control" formControlName="cpf">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.cpf">
+                  <mat-error
+                    *ngIf="editForm.get('cpf').hasError(validation.type) && (editForm.get('cpf').dirty || editForm.get('cpf').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>                 
+          
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="E-mail" type="email" class="form-control" formControlName="email">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.email">
+                  <mat-error
+                    *ngIf="editForm.get('email').hasError(validation.type) && (editForm.get('email').dirty || editForm.get('email').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput type="password" placeholder="Senha" class="form-control" formControlName="senha">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <mat-select placeholder="Perfis" class="form-control" formControlName="perfis">
+                    <mat-option value="0">Administrador</mat-option>
+                    <mat-option value="1">Beneficiário</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.perfis">
+                  <mat-error
+                    *ngIf="editForm.get('perfis').hasError(validation.type) && (editForm.get('perfis').dirty || editForm.get('perfis').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="row" *ngIf="editForm.value?.perfis == 1" >
+            <div class="col-md-3">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Nº anos para receber" type="number" class="form-control"
+                    formControlName="numeroAnosRecebendo">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" type="button" color="basic" (click)="cancel()">
+                <ion-icon name="home"></ion-icon> Cancelar
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" color="primary" type="submit"
+                [disabled]="!editForm.valid">Salvar</button>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button class="delete-button" color="warn" type="button"
+                (click)="delete()">Excluir</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

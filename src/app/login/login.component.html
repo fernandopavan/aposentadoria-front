@@ -1,0 +1,27 @@
+  <div class="login-container" style="margin-top: 50px;">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+      <mat-form-field class="input-style" style="display: block;">
+        <input matInput placeholder="E-mail:" class="form-control" formControlName="email" style="padding: 5px;">
+      </mat-form-field>
+      <mat-error *ngIf="loginForm.controls['email'].hasError('required') && loginForm.controls['email'].touched">
+        E-mail é obrigatório</mat-error>
+
+      <div class="form-group">
+        <mat-form-field class="input-style" style="display: block;">
+          <input matInput type="password" placeholder="Senha:" class="form-control" formControlName="senha" style="padding: 5px;">
+        </mat-form-field>
+        <mat-error *ngIf="loginForm.controls['senha'].hasError('required') && loginForm.controls['senha'].touched">
+          Senha é obrigatória</mat-error>
+      </div>
+
+      <div class="row submit-button-container">
+        <div class="col-md-4">
+          <button mat-raised-button class="submit-button" color="primary" type="submit"
+            [disabled]="loginForm.invalid">Entrar</button>
+        </div>
+      </div>
+
+    </form>
+  </div>

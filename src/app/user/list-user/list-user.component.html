@@ -1,0 +1,69 @@
+<div class="list-group users-list">
+  
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Usuários</h3>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="row">
+    <div class="col-md-9">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
+          placeholder="Busque pelo nome..." (keydown.enter)="searchByName()">
+        <div class="input-group-append" (click)="searchByName()">
+          <span class="input-group-text">
+            <ion-icon class="icon" name="search"></ion-icon>
+          </span>
+        </div>
+      </div>
+    </div>    
+    <div class="col-md-1">
+      <button mat-raised-button class="submit-button" type="button" color="primary" (click)="getPageUser(0)">
+        <ion-icon name="sync" style="font-size: 20px;"></ion-icon>
+      </button>
+    </div>
+    <div class="col-md-2">
+      <button mat-raised-button class="submit-button" type="button" color="primary" (click)="add()">
+        <ion-icon name="add"></ion-icon> Novo
+      </button>
+    </div>
+  </div>
+  <br>
+
+  <div *ngFor="let user of users"
+    class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-2 image-col">
+        <img class="image" src="https://oficinaeditora.com.br/site/wp-content/uploads/2019/01/unnamed.jpg">
+      </div>
+      <div class="col col-md-8 text-col">
+        <h5 class="mb-1">{{user.nome}}</h5>
+        <small>E-mail: {{user.email}}</small>
+      </div>
+      <div class="col col-md-2 actions-col">
+        <button class="btn btn-outline-primary action" (click)="viewDetails(user)" type="button">
+          <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="users.length == 0" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-12 text-col">
+        <h5 class="mb-1">Ainda não possui usuários cadastrados</h5>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="...">
+    <ul style="margin-top:10px;" class="pagination" *ngIf="users.length>0">
+      <li *ngFor="let page of ' '.repeat(pageUser.totalPages).split(''), let i = index " (click)="onSelect(i)"
+        [class.active]="i === selectedPage" class="page-item"><button class="page-link" >{{i+1}}</button></li>
+    </ul>
+  </nav>
+
+</div>

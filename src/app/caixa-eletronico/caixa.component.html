@@ -1,0 +1,63 @@
+<div class="create-page">
+  <mat-toolbar>
+    <span>Caixa eletrônico</span>
+  </mat-toolbar>
+
+  <div class="page-content">
+    <div class="row" style="padding: 25px;">
+
+      <div class="col-md-3">
+        <img class="img-avatar" src="https://oficinaeditora.com.br/site/wp-content/uploads/2019/01/unnamed.jpg">
+      </div>
+
+      <div class="col-md-3">
+        <h4>Beneficiário</h4>
+        <br>
+        <p><span style="font-weight: bold;">Nome:</span> {{beneficiario?.nome}}</p>
+        <p><span style="font-weight: bold;">CPF:</span> {{beneficiario?.cpf}}</p>
+        <p><span style="font-weight: bold;">E-mail:</span> {{beneficiario?.email}}</p>
+        <p><span style="font-weight: bold;">Nº anos para recebimento:</span> {{beneficiario?.numeroAnosRecebendo}}</p>
+        <p style="font-size: 18px; font-weight: bold;">Saldo total: <span style="color: indigo;">R$
+            {{beneficiario?.saldoTotal}}</span></p>
+        <p style="font-size: 18px; font-weight: bold;">Valor atual mensal: <span style="color: indigo;">R$
+            {{beneficiario?.valorAtualMensal}}</span></p>
+        <p style="font-size: 18px; font-weight: bold;">Situação: <span
+            style="color: indigo;">{{beneficiario?.situacao}}</span></p>
+      </div>
+
+      <div class="col-md-6">
+        <form class="create-form" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Valor do aporte" type="number" class="form-control"
+                    formControlName="valor">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.valor">
+                  <mat-error
+                    *ngIf="addForm.get('valor').hasError(validation.type) && (addForm.get('valor').dirty || addForm.get('valor').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <button mat-raised-button class="submit-button" type="button" color="basic" (click)="createForm()">
+                Cancelar
+              </button>
+            </div>
+            <div class="col-md-3">
+              <button mat-raised-button class="submit-button" color="primary" type="submit"
+                [disabled]="!addForm.valid">Aporte</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
