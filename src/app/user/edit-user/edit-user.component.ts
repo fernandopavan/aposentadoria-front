@@ -22,6 +22,7 @@ import { Platform } from '@angular/cdk/platform';
 export class EditUserComponent implements OnInit {
 
   user: User;
+  perfis: string;
   editForm: FormGroup;
 
   constructor(
@@ -59,6 +60,7 @@ export class EditUserComponent implements OnInit {
   }
 
   createForm() {
+    this.perfis = this.user.perfis.includes('BENEFICIARIO') ? '1' : '0';
     this.editForm = this.formBuilder.group({
       id: [this.user.id],
       nome: [this.user.nome, Validators.required],
@@ -66,13 +68,13 @@ export class EditUserComponent implements OnInit {
       email: [this.user.email, Validators.required],
       senha: [{ value: '***', disabled: true }],
       numeroAnosRecebendo: [this.user.numeroAnosRecebendo],
-      perfis: [this.user.perfis.includes('BENEFICIARIO') ? '1' : '0', Validators.required]
+      perfis: [{ value: this.perfis, disabled: true }]
     });
   }
 
   onSubmit() {
     this.editForm.value.senha = this.user.senha;
-    this.editForm.value.perfis = [this.editForm.value.perfis];
+    this.editForm.value.perfis = [this.perfis];
     this.userService.update(this.editForm.value)
       .pipe(first())
       .subscribe(response => {
